@@ -1,0 +1,82 @@
+Pre-Requisite:
+--------------
+1) Python should be installed
+2) Pyvcharm should be installed
+---------------------------------
+1)Create a Project
+2)Install Packages
+	Selenium-3.141
+	Pytest-4.6.3
+	pytest-html-1.21.0
+------------Automation Environment Set Up------------------
+3)Create directories
+	drivers
+	pages
+	test
+	report
+	data
+	conftest >>Python file
+4) Create plain python file
+5) Convert into methods
+	-file name should start with test_
+	-method name should start with test_
+	-Make the driver global in login method
+Run from terminal
+Go to terminal (python -m pytest --html report/q.html)
+
+How to run from command prompt:
+Prerequisite:
+	All above packages should be installed in local machine
+	>>open command prompt>>Ex: pip install selenium
+	Permission Error>>pip install <package> --user
+
+How to run from batch file:
+Open notepad>>cd project path>>python -m pytest --html report/a.html
+Save as >>.bat extension>>ex: run.bat>>(give double quote while saving a file)
+double click on bat file to execute test scripts
+
+
+6)Create page under pages directory(Ex:LoginPage)
+	-Place the Launch and Login code(in a class and method)
+	-Import webdriver
+7) In test file import Login class from Loginpage
+	(Ex:from pages.LoginPage import Login)
+8) Create an object for Login class and call the method
+
+9)create a conftest file in project
+	-Write below code
+	
+	import pytest
+
+@pytest.fixture(scope='class')
+def test_setup(request):
+    from selenium import webdriver
+    driver = webdriver.Chrome(executable_path="C:/Users/BTM-Faculty/Downloads/chromedriver.exe")
+    driver.get("http://localhost/login.do")
+    driver.implicitly_wait(30)
+    request.cls.driver = driver
+
+Note: request and cls are predefined
+
+10) Take driver reference to testfile
+	-Write below line above class 
+	@pytest.mark.usefixtures("test_setup")
+		-test_setup is conftest method name
+	-Notw class name should start with Test
+	Ex:  class TestLogin():
+	-write the below line
+	driver=self.driver
+	pass the driver ref to page class object creation >>driver
+11) Inside page class create a constructor>>to take driver ref from test file
+12) Create a testdata python file under data directory and place the test data
+	Ex:USERNAME='admin'
+13) How to call in test file
+	from data.testdata import *
+---------------Level 1 framework completed------------------
+
+
+
+
+
+
+
